@@ -34,11 +34,10 @@ void (async () => {
     ]),
   })
   .addUniversalLocation(
-    'AssetHubNftCollection',
+    'UniqueNftCollection',
     universalLocation('westend', [
-      {parachain: 1000n},
-      {palletInstance: 51n},
-      {generalIndex: 21n},
+      {parachain: 2037n},
+      {generalIndex: 1n},
     ]),
   )
   .addRelativeLocation(
@@ -55,17 +54,17 @@ void (async () => {
   await registry.addNativeCurrency('Relay');
   await registry.addNativeCurrency('Unique');
 
-  let xcm = await registry.connectXcm('AssetHub');
+  let xcm = await registry.connectXcm('Unique');
   console.log('XCM version:', xcm.xcmVersion);
 
   let transferTx = await xcm.composeTransfer({
     origin: 'TestAccount',
     assets: [
-      asset('AssetHubNftCollection', nonfungible(111n)),
-      xcm.adjustedFungible('xUSD', '10'),
+      asset('UniqueNftCollection', nonfungible(1n)),
+      xcm.adjustedFungible('UNQ', '10'),
     ],
-    feeAssetId: 'xUSD',
-    destination: 'Unique',
+    feeAssetId: 'UNQ',
+    destination: 'AssetHub',
     beneficiary: 'TestAccount',
   });
 
