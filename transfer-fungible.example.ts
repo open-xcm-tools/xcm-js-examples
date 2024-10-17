@@ -53,7 +53,7 @@ void (async () => {
   let transferTx = await xcm.composeTransfer({
     origin: 'TestAccount',
     assets: [
-      xcm.adjustedFungible('UNQ', '10'),
+      xcm.adjustedFungible('UNQ', '20'),
     ],
     feeAssetId: 'UNQ',
     destination: 'AssetHub',

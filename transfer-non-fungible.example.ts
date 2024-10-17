@@ -61,7 +61,7 @@ void (async () => {
     origin: 'TestAccount',
     assets: [
       asset('UniqueNftCollection', nonfungible(1n)),
-      xcm.adjustedFungible('UNQ', '10'),
+      xcm.adjustedFungible('UNQ', '20'),
     ],
     feeAssetId: 'UNQ',
     destination: 'AssetHub',
