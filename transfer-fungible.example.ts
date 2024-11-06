@@ -1,48 +1,52 @@
-import {Registry, parachainUniversalLocation, relaychainUniversalLocation} from '@open-xcm-tools/simple-xcm';
+import {
+  Registry,
+  parachainUniversalLocation,
+  relaychainUniversalLocation,
+} from '@open-xcm-tools/simple-xcm';
 import {location, universalLocation} from '@open-xcm-tools/xcm-util/common';
 
 void (async () => {
   const registry = new Registry()
-  .addChain({
-    identity: {
-      name: 'Relay',
-      universalLocation: relaychainUniversalLocation('westend'),
-    },
-    endpoints: ['wss://xnft-relay.unique.network'],
-  })
-  .addChain({
-    identity: {
-      name: 'AssetHub',
-      universalLocation: parachainUniversalLocation('westend', 1000n),
-    },
-    endpoints: ['wss://xnft-assethub.unique.network'],
-  })
-  .addChain({
-    identity: {
-      name: 'Unique',
-      universalLocation: parachainUniversalLocation('westend', 2037n),
-    },
-    endpoints: ['wss://xnft-unique.unique.network'],
-  })
-  .addCurrency({
-    symbol: 'xUSD',
-    decimals: 6,
-    universalLocation: universalLocation('westend', [
-      {parachain: 1000n},
-      {palletInstance: 50n},
-      {generalIndex: 32n},
-    ]),
-  })
-  .addRelativeLocation(
-    'TestAccount',
-    location(0n, [
-      {
-        accountId32: {
-          id: '5HMqkp4Zo9oYrWAL2jhi93xSbcLFhfakaqzpomuMTwDQUfMz',
-        },
+    .addChain({
+      identity: {
+        name: 'Relay',
+        universalLocation: relaychainUniversalLocation('westend'),
       },
-    ]),
-  );
+      endpoints: ['wss://xnft-relay.unique.network'],
+    })
+    .addChain({
+      identity: {
+        name: 'AssetHub',
+        universalLocation: parachainUniversalLocation('westend', 1000n),
+      },
+      endpoints: ['wss://xnft-assethub.unique.network'],
+    })
+    .addChain({
+      identity: {
+        name: 'Unique',
+        universalLocation: parachainUniversalLocation('westend', 2037n),
+      },
+      endpoints: ['wss://xnft-unique.unique.network'],
+    })
+    .addCurrency({
+      symbol: 'xUSD',
+      decimals: 6,
+      universalLocation: universalLocation('westend', [
+        {parachain: 1000n},
+        {palletInstance: 50n},
+        {generalIndex: 32n},
+      ]),
+    })
+    .addRelativeLocation(
+      'TestAccount',
+      location(0n, [
+        {
+          accountId32: {
+            id: '5HMqkp4Zo9oYrWAL2jhi93xSbcLFhfakaqzpomuMTwDQUfMz',
+          },
+        },
+      ]),
+    );
 
   await registry.addNativeCurrency('Relay');
   await registry.addNativeCurrency('Unique');
@@ -52,9 +56,7 @@ void (async () => {
 
   let transferTx = await xcm.composeTransfer({
     origin: 'TestAccount',
-    assets: [
-      xcm.adjustedFungible('UNQ', '20'),
-    ],
+    assets: [xcm.adjustedFungible('UNQ', '20')],
     feeAssetId: 'UNQ',
     destination: 'AssetHub',
     beneficiary: 'TestAccount',
@@ -64,4 +66,3 @@ void (async () => {
 
   await xcm.disconnect();
 })();
-
