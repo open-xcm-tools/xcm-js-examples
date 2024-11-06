@@ -358,7 +358,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@open-xcm-tools/xcm-estimate@npm:0.1.0-alpha":
+"@open-xcm-tools/xcm-estimate@npm:0.1.0-alpha, @open-xcm-tools/xcm-estimate@npm:^0.1.0-alpha":
   version: 0.1.0-alpha
   resolution: "@open-xcm-tools/xcm-estimate@npm:0.1.0-alpha"
   dependencies:
@@ -380,14 +380,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@open-xcm-tools/xcm-types@npm:0.1.0-alpha":
+"@open-xcm-tools/xcm-types@npm:0.1.0-alpha, @open-xcm-tools/xcm-types@npm:^0.1.0-alpha":
   version: 0.1.0-alpha
   resolution: "@open-xcm-tools/xcm-types@npm:0.1.0-alpha"
   checksum: 10c0/b4c10149f979ccdf7da35c31f41325ca52b92b974fdec1aebc642d7763b51ac808fda390de7cb93e3a1dbe862fab714e2050c6616bceb4759a079977d6cac400
   languageName: node
   linkType: hard
 
-"@open-xcm-tools/xcm-util@npm:0.1.0-alpha":
+"@open-xcm-tools/xcm-util@npm:0.1.0-alpha, @open-xcm-tools/xcm-util@npm:^0.1.0-alpha":
   version: 0.1.0-alpha
   resolution: "@open-xcm-tools/xcm-util@npm:0.1.0-alpha"
   dependencies:
@@ -5127,6 +5127,10 @@ __metadata:
   resolution: "xcm-js-examples@workspace:."
   dependencies:
     "@open-xcm-tools/simple-xcm": "npm:^0.1.0-alpha"
+    "@open-xcm-tools/xcm-estimate": "npm:^0.1.0-alpha"
+    "@open-xcm-tools/xcm-types": "npm:^0.1.0-alpha"
+    "@open-xcm-tools/xcm-util": "npm:^0.1.0-alpha"
+    "@polkadot/api": "npm:^13.2.1"
     "@types/node": "npm:^22.7.6"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.6.3"

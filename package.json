@@ -3,10 +3,18 @@
   "type": "module",
   "scripts": {
     "transfer-fun": "node --loader ts-node/esm ./transfer-fungible.example.ts",
-    "transfer-non-fun": "node --loader ts-node/esm ./transfer-non-fungible.example.ts"
+    "transfer-non-fun": "node --loader ts-node/esm ./transfer-non-fungible.example.ts",
+    "sorting-assets": "node --loader ts-node/esm ./sorting-assets.example.ts",
+    "sanitize": "node --loader ts-node/esm ./sanitize.example.ts",
+    "estimate": "node --loader ts-node/esm ./estimate.example.ts",
+    "convert": "node --loader ts-node/esm ./convert-version.example.ts"
   },
   "dependencies": {
     "@open-xcm-tools/simple-xcm": "^0.1.0-alpha",
+    "@open-xcm-tools/xcm-estimate": "^0.1.0-alpha",
+    "@open-xcm-tools/xcm-types": "^0.1.0-alpha",
+    "@open-xcm-tools/xcm-util": "^0.1.0-alpha",
+    "@polkadot/api": "^13.2.1",
     "@types/node": "^22.7.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
