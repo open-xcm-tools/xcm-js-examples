@@ -1,4 +1,4 @@
-import { parachainUniversalLocation } from "@open-xcm-tools/simple-xcm";
+import { relaychainUniversalLocation } from "@open-xcm-tools/simple-xcm";
 import { Estimator } from "@open-xcm-tools/xcm-estimate";
 import {
   AssetId,
@@ -9,12 +9,11 @@ import {
 import { compareInteriorLocation } from "@open-xcm-tools/xcm-util";
 import { Keyring, WsProvider } from "@polkadot/api";
 import { ApiPromise } from "@polkadot/api/promise";
+import { stringify } from "@polkadot/util";
 
 void (async () => {
-  const providerRelay = new WsProvider("wss://rpc.polkadot.io");
-  const providerAssetHub = new WsProvider(
-    "wss://asset-hub-polkadot-rpc.dwellir.com",
-  );
+  const providerRelay = new WsProvider("wss://westend-rpc.polkadot.io");
+  const providerAssetHub = new WsProvider("wss://westend-asset-hub-rpc.polkadot.io");
 
   const relayApi = await ApiPromise.create({ provider: providerRelay });
   const assetHubApi = await ApiPromise.create({ provider: providerAssetHub });
@@ -25,16 +24,16 @@ void (async () => {
 
   const xcmVersion = 4;
   const chainIdentity = <ChainIdentity>{
-    name: "AssetHub",
-    universalLocation: parachainUniversalLocation("polkadot", 1000n),
+    name: "Westend",
+    universalLocation: relaychainUniversalLocation("westend"),
   };
-  const estimator = new Estimator(assetHubApi, chainIdentity, xcmVersion);
+  const estimator = new Estimator(relayApi, chainIdentity, xcmVersion);
 
-  const tx = assetHubApi.tx.polkadotXcm.transferAssets(
+  const tx = relayApi.tx.xcmPallet.transferAssets(
     {
       V4: {
-        parents: 1,
-        interior: "here",
+        parents: 0,
+        interior: { x1: [{ parachain: 1000n }] },
       },
     },
     {
@@ -56,10 +55,10 @@ void (async () => {
         {
           id: {
             parents: 0,
-            interior: { X2: [{ PalletInstance: 50 }, { GeneralIndex: 3 }] },
+            interior: "here",
           },
           fun: {
-            Fungible: 100000000,
+            Fungible: 5000000000000,
           },
         },
       ],
@@ -68,41 +67,44 @@ void (async () => {
     "Unlimited",
   );
 
+  // FIXME needs to be renamed after release to tryEstimateExtrinsicFees
   const estimatedFees = await estimator.estimateExtrinsicFees(
-    // FIXME needs to be renamed after release to tryEstimateExtrinsicFees
-    { System: { Signed: "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY" } },
+    // This account will be used as the origin of the `tx` extrinsic.
+    // You can set you own account here.
+    // Use Westend faucet to get WNDs.
+    { System: { Signed: "5HMqkp4Zo9oYrWAL2jhi93xSbcLFhfakaqzpomuMTwDQUfMz" } },
     tx,
+
+    // Fee asset
     <AssetId>{
-      parents: 1n,
-      interior: {
-        x3: [
-          { parachain: 1000n },
-          { palletInstance: 50n },
-          { generalIndex: 3n },
-        ],
-      },
+      parents: 0n,
+      interior: "here",
     },
     {
       estimatorResolver: async (universalLocation: InteriorLocation) => {
         if (
-          compareInteriorLocation(universalLocation, <InteriorLocation>{
-            x1: [{ globalConsensus: "polkadot" }],
+          !compareInteriorLocation(universalLocation, <InteriorLocation>{
+            x2: [{ globalConsensus: "westend" }, { parachain: 1000n }],
           })
         ) {
+          const assetHubXcmVersion = 4;
+
           return new Estimator(
-            relayApi,
+            assetHubApi,
             <ChainIdentity>{
-              name: "Polkadot",
-              universalLocation: universalLocation,
+              name: "AssetHub",
+              universalLocation,
             },
-            4,
+            assetHubXcmVersion,
           );
         } else {
-          throw Error("failed to resolve chain api: unknown chain location");
+          throw Error(`failed to resolve chain api: unknown chain location - ${stringify(universalLocation)}`);
         }
       },
     },
   );
 
   console.log(`Estimated fee value: ${estimatedFees}`);
+
+  await estimator.disconnect();
 })();

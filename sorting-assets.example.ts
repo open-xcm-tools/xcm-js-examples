@@ -38,6 +38,19 @@ void (() => {
         id: {
           parents: 1n,
           interior: {
+            x3: [
+              { parachain: 2002n },
+              { palletInstance: 50n },
+              { generalIndex: 1002n },
+            ],
+          },
+        },
+        fun: { fungible: 3000000n },
+      },
+      {
+        id: {
+          parents: 1n,
+          interior: {
             x2: [{ parachain: 2002n }, { generalIndex: 1002n }],
           },
         },
