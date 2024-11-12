@@ -335,13 +335,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@open-xcm-tools/simple-xcm@npm:^0.1.0-alpha":
-  version: 0.1.0-alpha
-  resolution: "@open-xcm-tools/simple-xcm@npm:0.1.0-alpha"
+"@open-xcm-tools/simple-xcm@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@open-xcm-tools/simple-xcm@npm:0.2.0"
   dependencies:
-    "@open-xcm-tools/xcm-estimate": "npm:0.1.0-alpha"
-    "@open-xcm-tools/xcm-types": "npm:0.1.0-alpha"
-    "@open-xcm-tools/xcm-util": "npm:0.1.0-alpha"
+    "@open-xcm-tools/xcm-estimate": "npm:0.2.0"
+    "@open-xcm-tools/xcm-types": "npm:0.2.0"
+    "@open-xcm-tools/xcm-util": "npm:0.2.0"
     "@polkadot/api": "npm:13.2.1"
     "@polkadot/apps-config": "npm:^0.144.1"
     "@polkadot/keyring": "npm:^13.0.2"
@@ -354,16 +354,16 @@ __metadata:
     react-is: "npm:*"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.3.3"
-  checksum: 10c0/15add7b81731b069b6d9c4ff165df76843381501df626eaccb920e687b81fb01926befb33587f6efb0c51b5a832acb147515e0a564c9c6fdbc30af24bdbf528c
+  checksum: 10c0/607f5948f1e8e69d82cd5f232b946e7b1ec202802c505122a2b6a80841930fa92eb035881083fddac1ecdab1b3cd738c0497eec010d7e25d3bed0113359716b3
   languageName: node
   linkType: hard
 
-"@open-xcm-tools/xcm-estimate@npm:0.1.0-alpha, @open-xcm-tools/xcm-estimate@npm:^0.1.0-alpha":
-  version: 0.1.0-alpha
-  resolution: "@open-xcm-tools/xcm-estimate@npm:0.1.0-alpha"
+"@open-xcm-tools/xcm-estimate@npm:0.2.0, @open-xcm-tools/xcm-estimate@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@open-xcm-tools/xcm-estimate@npm:0.2.0"
   dependencies:
-    "@open-xcm-tools/xcm-types": "npm:0.1.0-alpha"
-    "@open-xcm-tools/xcm-util": "npm:0.1.0-alpha"
+    "@open-xcm-tools/xcm-types": "npm:0.2.0"
+    "@open-xcm-tools/xcm-util": "npm:0.2.0"
     "@polkadot/api": "npm:13.2.1"
     "@polkadot/apps-config": "npm:^0.144.1"
     "@polkadot/keyring": "npm:^13.0.2"
@@ -376,22 +376,22 @@ __metadata:
     react-is: "npm:*"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.3.3"
-  checksum: 10c0/51b97dbb477f593e366057454e154b9b340f470fbf61fd18f6358ac94eb5245e6afbace79e761064f570b6ccff03f4ac47df8a0891540d1137d7f364e3dba1f9
+  checksum: 10c0/d4875e92c64628bac75e36b12b8b4242aabc81508eedabe21d537fe7ad4c8e955fd802154208d02870daa158da510078f69e041089f4db8d84c7dfe2a2b947f4
   languageName: node
   linkType: hard
 
-"@open-xcm-tools/xcm-types@npm:0.1.0-alpha, @open-xcm-tools/xcm-types@npm:^0.1.0-alpha":
-  version: 0.1.0-alpha
-  resolution: "@open-xcm-tools/xcm-types@npm:0.1.0-alpha"
-  checksum: 10c0/b4c10149f979ccdf7da35c31f41325ca52b92b974fdec1aebc642d7763b51ac808fda390de7cb93e3a1dbe862fab714e2050c6616bceb4759a079977d6cac400
+"@open-xcm-tools/xcm-types@npm:0.2.0, @open-xcm-tools/xcm-types@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@open-xcm-tools/xcm-types@npm:0.2.0"
+  checksum: 10c0/74e6c493b1cee6fe4c582800b7b109343cfc354dcc070679f35a03f72923a73091b3ebd9d05af19c8f193e0285155a9dd85f6ecd46e7ef1b3b4b38d83388e27a
   languageName: node
   linkType: hard
 
-"@open-xcm-tools/xcm-util@npm:0.1.0-alpha, @open-xcm-tools/xcm-util@npm:^0.1.0-alpha":
-  version: 0.1.0-alpha
-  resolution: "@open-xcm-tools/xcm-util@npm:0.1.0-alpha"
+"@open-xcm-tools/xcm-util@npm:0.2.0, @open-xcm-tools/xcm-util@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@open-xcm-tools/xcm-util@npm:0.2.0"
   dependencies:
-    "@open-xcm-tools/xcm-types": "npm:0.1.0-alpha"
+    "@open-xcm-tools/xcm-types": "npm:0.2.0"
     "@polkadot/api": "npm:13.2.1"
     "@polkadot/apps-config": "npm:^0.144.1"
     "@polkadot/keyring": "npm:^13.0.2"
@@ -404,7 +404,7 @@ __metadata:
     react-is: "npm:*"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.3.3"
-  checksum: 10c0/99e28d78c437cf51fe60b3007a3fab219bf28cce00abb696a7bbbfac97636b39d65ab1eabe1a3ee4970ee9e7d09222640f92ec79b2ba3213c1449763c3ad8ffe
+  checksum: 10c0/75ad5e8fea3fc1550b4b28084b16ddb7b4c6ef042e65f19bb8d9c10e09f84c2a3ee0dff1b7ab6f89731e6c82caa1e13adf45a98948ad1459f348732a69bd9ab4
   languageName: node
   linkType: hard
 
@@ -5126,10 +5126,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "xcm-js-examples@workspace:."
   dependencies:
-    "@open-xcm-tools/simple-xcm": "npm:^0.1.0-alpha"
-    "@open-xcm-tools/xcm-estimate": "npm:^0.1.0-alpha"
-    "@open-xcm-tools/xcm-types": "npm:^0.1.0-alpha"
-    "@open-xcm-tools/xcm-util": "npm:^0.1.0-alpha"
+    "@open-xcm-tools/simple-xcm": "npm:^0.2.0"
+    "@open-xcm-tools/xcm-estimate": "npm:^0.2.0"
+    "@open-xcm-tools/xcm-types": "npm:^0.2.0"
+    "@open-xcm-tools/xcm-util": "npm:^0.2.0"
     "@polkadot/api": "npm:^13.2.1"
     "@types/node": "npm:^22.7.6"
     ts-node: "npm:^10.9.2"

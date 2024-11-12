@@ -12,8 +12,8 @@ import { ApiPromise } from "@polkadot/api/promise";
 import { stringify } from "@polkadot/util";
 
 void (async () => {
-  const providerRelay = new WsProvider("wss://westend-rpc.polkadot.io");
-  const providerAssetHub = new WsProvider("wss://westend-asset-hub-rpc.polkadot.io");
+  const providerRelay = new WsProvider("wss://xnft-relay.unique.network");
+  const providerAssetHub = new WsProvider("wss://xnft-assethub.unique.network");
 
   const relayApi = await ApiPromise.create({ provider: providerRelay });
   const assetHubApi = await ApiPromise.create({ provider: providerAssetHub });
@@ -67,8 +67,7 @@ void (async () => {
     "Unlimited",
   );
 
-  // FIXME needs to be renamed after release to tryEstimateExtrinsicFees
-  const estimatedFees = await estimator.estimateExtrinsicFees(
+  const estimatedFees = await estimator.tryEstimateExtrinsicFees(
     // This account will be used as the origin of the `tx` extrinsic.
     // You can set you own account here.
     // Use Westend faucet to get WNDs.

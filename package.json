@@ -10,10 +10,10 @@
     "convert": "node --loader ts-node/esm ./convert-version.example.ts"
   },
   "dependencies": {
-    "@open-xcm-tools/simple-xcm": "^0.1.0-alpha",
-    "@open-xcm-tools/xcm-estimate": "^0.1.0-alpha",
-    "@open-xcm-tools/xcm-types": "^0.1.0-alpha",
-    "@open-xcm-tools/xcm-util": "^0.1.0-alpha",
+    "@open-xcm-tools/simple-xcm": "^0.2.0",
+    "@open-xcm-tools/xcm-estimate": "^0.2.0",
+    "@open-xcm-tools/xcm-types": "^0.2.0",
+    "@open-xcm-tools/xcm-util": "^0.2.0",
     "@polkadot/api": "^13.2.1",
     "@types/node": "^22.7.6",
     "ts-node": "^10.9.2",
