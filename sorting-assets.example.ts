@@ -2,6 +2,13 @@ import { VersionedAssets } from "@open-xcm-tools/xcm-types";
 import { sortAndDeduplicateVersionedAssets } from "@open-xcm-tools/xcm-util";
 import { stringify } from "@polkadot/util";
 
+// `xcm-util` defines a set of functions designed to sort
+// and deduplicate asset collections based on their versioning and properties.
+// The primary goal is to ensure that the assets are organized in a specific order,
+// that any duplicates are removed and aggregate certain properties,
+// specifically summing the fungible amounts of assets with the same ID
+// or ignoring duplicate NFTs.
+
 void (() => {
   const assetArray: VersionedAssets = {
     v4: [

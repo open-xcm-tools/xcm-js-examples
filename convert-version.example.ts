@@ -8,6 +8,9 @@ import {
 import { Asset, Location } from "@open-xcm-tools/xcm-types";
 import { stringify } from "@polkadot/util";
 
+// `xcm-util` provides functions to convert XCM object versions.
+// It can upgrade and downgrade the object versions.
+
 void (() => {
   const locationV4: Location = location(1n, [
     { parachain: 1000n },

@@ -6,6 +6,9 @@ import {
 import { location, universalLocation } from "@open-xcm-tools/xcm-util/common";
 
 void (async () => {
+  // The `Registry` stores information about chains, currencies, and locations in general.
+  // This info is used by the `SimpleXcm` to connect to the chains
+  // and compute the locations based on its in-registry name.
   const registry = new Registry()
     .addChain({
       identity: {
@@ -54,9 +57,12 @@ void (async () => {
   let xcm = await registry.connectXcm("Unique");
   console.log("XCM version:", xcm.xcmVersion);
 
+  // The `transferTx` will contain not only the assets you want to transfer but also the necessary fees.
+  // All the in-registry names will be automatically transformed into the corresponding locations
+  // The origin location will be converted into the account to form a signed origin.
   let transferTx = await xcm.composeTransfer({
     origin: "TestAccount",
-    assets: [xcm.adjustedFungible("UNQ", "20")],
+    assets: [xcm.adjustedFungible("UNQ", "20")], // `adjustedFungible` will take into account the decimals to form 20 UNQ.
     feeAssetId: "UNQ",
     destination: "AssetHub",
     beneficiary: "TestAccount",

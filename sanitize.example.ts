@@ -1,6 +1,14 @@
 import { Location } from "@open-xcm-tools/xcm-types";
 import { sanitizeLocation } from "@open-xcm-tools/xcm-util";
 
+// `xcm-util` provides a comprehensive set of functions for sanitizing
+// and validating various assets data structures.
+// It ensures that the data adheres to specified constraints,
+// such as bit size and byte length, thereby preventing potential errors and inconsistencies.
+// The module includes functions to sanitize assets, fungibility types,
+// locations, junctions, and network identifiers,
+// ensuring that all data conforms to the expected formats and standards.
+
 void (() => {
   let locations: Location[] = [
     {

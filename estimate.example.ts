@@ -11,6 +11,9 @@ import { Keyring, WsProvider } from "@polkadot/api";
 import { ApiPromise } from "@polkadot/api/promise";
 import { stringify } from "@polkadot/util";
 
+// The `Estimator` class provides a comprehensive framework for estimating fees
+// and execution effects of XCM programs using Runtime API.
+
 void (async () => {
   const providerRelay = new WsProvider("wss://xnft-relay.unique.network");
   const providerAssetHub = new WsProvider("wss://xnft-assethub.unique.network");
@@ -29,6 +32,8 @@ void (async () => {
   };
   const estimator = new Estimator(relayApi, chainIdentity, xcmVersion);
 
+  // `tx` is the transaction that will trigger XCM interaction with another chain.
+  // We will use the `estimator` to estimate the required fees.
   const tx = relayApi.tx.xcmPallet.transferAssets(
     {
       V4: {
@@ -69,8 +74,6 @@ void (async () => {
 
   const estimatedFees = await estimator.tryEstimateExtrinsicFees(
     // This account will be used as the origin of the `tx` extrinsic.
-    // You can set you own account here.
-    // Use Westend faucet to get WNDs.
     { System: { Signed: "5HMqkp4Zo9oYrWAL2jhi93xSbcLFhfakaqzpomuMTwDQUfMz" } },
     tx,
 

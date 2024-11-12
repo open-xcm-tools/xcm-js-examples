@@ -1,5 +1,7 @@
 # xcm-js-tools examples
 
+The runnable examples for [XCM JS tools](https://github.com/open-xcm-tools/xcm-js-tools).
+
 ## Usage
 
 ### Install Yarn
