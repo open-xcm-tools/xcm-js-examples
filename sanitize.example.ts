@@ -10,9 +10,9 @@ import { sanitizeLocation } from "@open-xcm-tools/xcm-util";
 // ensuring that all data conforms to the expected formats and standards.
 
 void (() => {
-  let locations: Location[] = [
+  const correctLocations: Location[] = [
     {
-      parents: 1n, 
+      parents: 1n,
       interior: {
         x2: [
           { parachain: 1000n },
@@ -48,13 +48,13 @@ void (() => {
   ];
 
   try {
-    locations.forEach(sanitizeLocation);
+    correctLocations.forEach(sanitizeLocation);
     console.log("[OK] sanitizeLocation pass valid locations");
   } catch (e) {
     console.log("should NOT happen");
   }
 
-  locations = [
+  const invalidLocations: Location[] = [
     {
       parents: 1n,
       interior: {
@@ -78,7 +78,7 @@ void (() => {
   ];
 
   try {
-    locations.forEach(sanitizeLocation);
+    invalidLocations.forEach(sanitizeLocation);
     console.log("should NOT happen");
   } catch (e) {
     console.log("[OK] sanitizeLocation does NOT pass an invalid location");
