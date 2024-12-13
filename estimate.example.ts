@@ -101,7 +101,7 @@ void (async () => {
     }
   };
 
-  const estimatedFees = await estimator.estimateExtrinsicFees(
+  const estimatedFees = await estimator.tryEstimateExtrinsicFees(
     origin,
     tx,
     feeAssetId,
