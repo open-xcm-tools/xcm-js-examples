@@ -101,6 +101,9 @@ void (async () => {
     }
   };
 
+  // This method returns the assets that can be used to pay the fees.
+  const feeAssetsIds = await estimator.estimateFeeAssetIds();
+
   const estimatedFees = await estimator.tryEstimateExtrinsicFees(
     origin,
     tx,
