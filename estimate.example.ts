@@ -1,10 +1,11 @@
 import { relaychainUniversalLocation } from "@open-xcm-tools/simple-xcm";
 import { Estimator } from "@open-xcm-tools/xcm-estimate";
+import { EstimatorResolver } from "@open-xcm-tools/xcm-estimate/estimator";
 import {
   AssetId,
   ChainIdentity,
-  ChainInfo,
   InteriorLocation,
+  Origin,
 } from "@open-xcm-tools/xcm-types";
 import { compareInteriorLocation } from "@open-xcm-tools/xcm-util";
 import { Keyring, WsProvider } from "@polkadot/api";
@@ -72,38 +73,42 @@ void (async () => {
     "Unlimited",
   );
 
+  // This account will be used as the origin of the `tx` extrinsic.
+  const origin: Origin = { System: { Signed: "5HMqkp4Zo9oYrWAL2jhi93xSbcLFhfakaqzpomuMTwDQUfMz" } }
+
+  // This asset will be used to pay the fees.
+  const feeAssetId: AssetId = { parents: 0n, interior: "here" };
+
+  // This function will create an `Estimator` instance based on the `universalLocation`.
+  const estimatorResolver: EstimatorResolver = async (universalLocation: InteriorLocation) => {
+    if (
+        !compareInteriorLocation(universalLocation, <InteriorLocation>{
+          x2: [{ globalConsensus: "westend" }, { parachain: 1000n }],
+        })
+    ) {
+      const assetHubXcmVersion = 4;
+
+      return new Estimator(
+          assetHubApi,
+          {
+            name: "AssetHub",
+            universalLocation,
+          },
+          assetHubXcmVersion,
+      );
+    } else {
+      throw Error(`failed to resolve chain api: unknown chain location - ${stringify(universalLocation)}`);
+    }
+  };
+
+  // This method returns the assets that can be used to pay the fees.
+  const feeAssetsIds = await estimator.estimateFeeAssetIds();
+
   const estimatedFees = await estimator.tryEstimateExtrinsicFees(
-    // This account will be used as the origin of the `tx` extrinsic.
-    { System: { Signed: "5HMqkp4Zo9oYrWAL2jhi93xSbcLFhfakaqzpomuMTwDQUfMz" } },
+    origin,
     tx,
-
-    // Fee asset
-    <AssetId>{
-      parents: 0n,
-      interior: "here",
-    },
-    {
-      estimatorResolver: async (universalLocation: InteriorLocation) => {
-        if (
-          !compareInteriorLocation(universalLocation, <InteriorLocation>{
-            x2: [{ globalConsensus: "westend" }, { parachain: 1000n }],
-          })
-        ) {
-          const assetHubXcmVersion = 4;
-
-          return new Estimator(
-            assetHubApi,
-            <ChainIdentity>{
-              name: "AssetHub",
-              universalLocation,
-            },
-            assetHubXcmVersion,
-          );
-        } else {
-          throw Error(`failed to resolve chain api: unknown chain location - ${stringify(universalLocation)}`);
-        }
-      },
-    },
+    feeAssetId,
+    { estimatorResolver },
   );
 
   console.log(`Estimated fee value: ${estimatedFees}`);
