@@ -49,7 +49,7 @@ void (async () => {
       "UniqueNftCollection",
       universalLocation("westend", [
         { parachain: 2037n },
-        { generalIndex: 1n },
+        { generalIndex: 3n },
       ]),
     )
     .addRelativeLocation(
@@ -75,7 +75,7 @@ void (async () => {
   let transferTx = await xcm.composeTransfer({
     origin: "TestAccount",
     assets: [
-      asset("UniqueNftCollection", nonfungible(1n)),
+      asset("UniqueNftCollection", nonfungible(2n)),
       xcm.adjustedFungible("UNQ", "20"), // `adjustedFungible` will take into account the decimals to form 20 UNQ.
     ],
     feeAssetId: "UNQ",
