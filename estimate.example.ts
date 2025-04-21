@@ -3,18 +3,23 @@ import { Estimator } from "@open-xcm-tools/xcm-estimate";
 import {
   AssetId,
   ChainIdentity,
-  ChainInfo,
   InteriorLocation,
+  NetworkId,
 } from "@open-xcm-tools/xcm-types";
 import { compareInteriorLocation } from "@open-xcm-tools/xcm-util";
 import { Keyring, WsProvider } from "@polkadot/api";
-import { ApiPromise } from "@polkadot/api/promise";
+import { ApiPromise } from "@polkadot/api";
 import { stringify } from "@polkadot/util";
 
 // The `Estimator` class provides a comprehensive framework for estimating fees
 // and execution effects of XCM programs using Runtime API.
 
 void (async () => {
+  const WESTEND_NETWORK_ID: NetworkId = {
+    byGenesis:
+      Buffer.from('0xe143f23803ac50e8f6f8e62695d1ce9e4e1d68aa36c1cd2cfd15340213f3423e', 'hex'),
+  };
+
   const providerRelay = new WsProvider("wss://xnft-relay.unique.network");
   const providerAssetHub = new WsProvider("wss://xnft-assethub.unique.network");
 
@@ -28,9 +33,15 @@ void (async () => {
   const xcmVersion = 4;
   const chainIdentity = <ChainIdentity>{
     name: "Westend",
-    universalLocation: relaychainUniversalLocation("westend"),
+    universalLocation: relaychainUniversalLocation(WESTEND_NETWORK_ID),
   };
-  const estimator = new Estimator(relayApi, chainIdentity, xcmVersion);
+  const apiFinalizer = (api: ApiPromise) => api.disconnect();
+  const estimator = new Estimator(
+    relayApi,
+    apiFinalizer,
+    chainIdentity,
+    xcmVersion,
+  );
 
   // `tx` is the transaction that will trigger XCM interaction with another chain.
   // We will use the `estimator` to estimate the required fees.
@@ -72,7 +83,7 @@ void (async () => {
     "Unlimited",
   );
 
-  const estimatedFees = await estimator.tryEstimateExtrinsicFees(
+  const estimatedFees = await estimator.tryEstimateXcmFees(
     // This account will be used as the origin of the `tx` extrinsic.
     { System: { Signed: "5HMqkp4Zo9oYrWAL2jhi93xSbcLFhfakaqzpomuMTwDQUfMz" } },
     tx,
@@ -86,13 +97,14 @@ void (async () => {
       estimatorResolver: async (universalLocation: InteriorLocation) => {
         if (
           !compareInteriorLocation(universalLocation, <InteriorLocation>{
-            x2: [{ globalConsensus: "westend" }, { parachain: 1000n }],
+            x2: [{ globalConsensus: WESTEND_NETWORK_ID }, { parachain: 1000n }],
           })
         ) {
           const assetHubXcmVersion = 4;
 
           return new Estimator(
             assetHubApi,
+            apiFinalizer,
             <ChainIdentity>{
               name: "AssetHub",
               universalLocation,
@@ -108,5 +120,5 @@ void (async () => {
 
   console.log(`Estimated fee value: ${estimatedFees}`);
 
-  await estimator.disconnect();
+  await estimator.finalize();
 })();
